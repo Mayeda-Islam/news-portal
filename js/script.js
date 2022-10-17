@@ -15,7 +15,7 @@ const displayAllCategoryNews = (allNews) => {
    const allNewsContainer = document.getElementById("all-news");
    for (const news of allNews) {
       const newsDiv = document.createElement("div");
-      newsDiv.innerHTML = `<div id="all-news" class="text-center fw-bold " onclick="loadNews('${news.category_id}','${news.category_name}')">${news.category_name}</div>`;
+      newsDiv.innerHTML = `<div id="all-news" style="cursor:pointer;" class="text-center  fw-bold " onclick="loadNews('${news.category_id}','${news.category_name}')">${news.category_name}</div>`;
       allNewsContainer.appendChild(newsDiv);
    }
    toggleSpinner(false);
@@ -42,7 +42,7 @@ const loadNews = (categoriesId, categoriesName) => {
 const showAllNews = (allNews, categoriesName) => {
    // show the news lenght
    const newsLength = document.getElementById("news-length");
-   newsLength.innerText = `Total ${categoriesName} news is ${allNews.length}`;
+   newsLength.innerText = ` ${allNews.length} news found in ${categoriesName} catagoery `;
    const allNewsContainer = document.getElementById("all-news-container");
    allNewsContainer.innerHTML = ``;
    allNews.forEach((news) => {
@@ -92,13 +92,13 @@ const showAllNews = (allNews, categoriesName) => {
                                  </div>
                               </div>
                               <div class="d-flex align-items-center">
-                              <i class="fa-solid fa-eye"></i>
+                              <i style=" color: #5D5FEF;" class="fa-solid fa-eye"></i>
                                  <small class=" ps-2">${
                                     news.total_view ? news.total_view : 0
                                  }</small>
                               </div>
                               <div>
-                              <i onclick="detailsNews('${
+                              <i style=" color: #5D5FEF;" onclick="detailsNews('${
                                  news._id
                               }')" class="fa-solid fa-arrow-right-to-bracket" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i>
                               </div>
