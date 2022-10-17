@@ -107,8 +107,37 @@ const displayDetailsNews = (allNews) => {
       newsTitle.innerHTML = `<p>${news.title}</p>`;
       const newsInfo = document.getElementById("news-body");
       newsInfo.innerHTML = `
-      <img src='${news.image_url}'/>
-      <p>${news.author.nane}</p>`;
+      <img class="img-fluid" src='${news.image_url}'/>
+      <table class="table">
+         <tbody>
+            <tr>
+               <th>Author name : </th>
+               <td>${news.author.name ? news.author.name : "not found"}</td>
+               
+            </tr>
+             <tr>
+               <th>Published date : </th>
+               <td>${
+                  news.author.published_date
+                     ? news.author.published_date
+                     : "not found"
+               }</td>
+            </tr>
+            <tr>
+               <th>Rating : </th>
+               <td>${news.rating.number ? news.rating.number : "not found"}</td>
+            </tr>
+            <tr>
+               <th>Badge: </th>
+               <td>${news.rating.badge ? news.rating.badge : "not found"}</td>
+            </tr>
+            <tr>
+               <th>Total view : </th>
+               <td>${news.total_view ? news.total_view : "not found"}</td>
+            </tr>
+         </tbody>
+      </table>
+     `;
    });
 };
 loadAllCategoryNews();
