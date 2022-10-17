@@ -7,3 +7,11 @@ hr {
     background-color: #5D5FEF;
     border: 0px solid #5D5FEF;
 }
+
+#sort-button {
+    background-color: #5D5FEF;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+}
