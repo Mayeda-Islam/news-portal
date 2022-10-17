@@ -23,7 +23,9 @@
    </head>
    <body>
       <header>
-         <nav class="container my-4 d-flex justify-content-between">
+         <nav
+            class="container my-4 d-flex align-items-center justify-content-between"
+         >
             <ul class="nav nav-pills">
                <li id="e-news" class="nav-item">
                   <a class="nav-link" href="#home">E-news</a>
@@ -39,16 +41,23 @@
                   >
                </li>
             </ul>
-            <div>
-               <img class="w-50 rounded-circle" src="images/logo.png" alt="" />
-            </div>
+
+            <img
+               height="50px"
+               class="rounded-circle"
+               src="images/logo.png"
+               alt=""
+            />
          </nav>
          <hr class="mx-auto" />
       </header>
       <main id="home">
          <!-- all categories news section -->
          <section class="container">
-            <div id="all-news" class="row mb-4"></div>
+            <div
+               id="all-news"
+               class="d-flex border border-1 p-3 justify-content-between flex-column flex-md-row mb-4"
+            ></div>
          </section>
          <!-- loading section -->
          <section>
@@ -65,6 +74,16 @@
          <section>
             <h1 id="news-length" class="text-center"></h1>
          </section>
+         <!-- sort news -->
+         <div class="container text-end">
+            <button
+               id="sort-button"
+               class="d-none"
+               onclick="handleSortByViews()"
+            >
+               Sort by views
+            </button>
+         </div>
          <!-- all news section -->
          <section class="mt-5 container">
             <div id="all-news-container" class="row gy-4"></div>

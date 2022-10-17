@@ -1,3 +1,6 @@
+let allNews = [];
+// short button
+const sortButton = document.getElementById("sort-button");
 const loadAllCategoryNews = () => {
    toggleSpinner(true);
    const url = `https://openapi.programming-hero.com/api/news/categories`;
@@ -9,28 +12,37 @@ const loadAllCategoryNews = () => {
       });
 };
 const displayAllCategoryNews = (allNews) => {
+   const allNewsContainer = document.getElementById("all-news");
    for (const news of allNews) {
-      const allNewsContainer = document.getElementById("all-news");
       const newsDiv = document.createElement("div");
-      newsDiv.classList.add("col-sm-2");
-      newsDiv.innerHTML = `<div id="all-news" class="text-center fw-bold pt-2" onclick="loadNews('${news.category_id}')">${news.category_name}</div>`;
+      newsDiv.innerHTML = `<div id="all-news" class="text-center fw-bold " onclick="loadNews('${news.category_id}','${news.category_name}')">${news.category_name}</div>`;
       allNewsContainer.appendChild(newsDiv);
    }
    toggleSpinner(false);
 };
-const loadNews = (newsId) => {
+const loadNews = (categoriesId, categoriesName) => {
    // spinner
    toggleSpinner(true);
-   const url = `https://openapi.programming-hero.com/api/news/category/${newsId}`;
+   const url = `https://openapi.programming-hero.com/api/news/category/${categoriesId}`;
    fetch(url)
       .then((res) => res.json())
-      .then((data) => showAllNew(data.data))
+      .then((data) => {
+         allNews = data.data;
+         if (allNews.length > 0) {
+            sortButton.classList.remove("d-none");
+         } else {
+            sortButton.classList.add("d-none");
+         }
+         showAllNews(data.data, categoriesName);
+      })
+
       .catch((error) => console.log(error));
 };
-const showAllNew = (allNews) => {
+
+const showAllNews = (allNews, categoriesName) => {
    // show the news lenght
    const newsLength = document.getElementById("news-length");
-   newsLength.innerText = `Total news is ${allNews.length}`;
+   newsLength.innerText = `Total ${categoriesName} news is ${allNews.length}`;
    const allNewsContainer = document.getElementById("all-news-container");
    allNewsContainer.innerHTML = ``;
    allNews.forEach((news) => {
@@ -98,6 +110,10 @@ const showAllNew = (allNews) => {
    });
    // stop spinner
    toggleSpinner(false);
+};
+const handleSortByViews = () => {
+   const sortedNews = allNews.sort((a, b) => b.total_view - a.total_view);
+   showAllNews(sortedNews);
 };
 const detailsNews = (newsId) => {
    const url = `https://openapi.programming-hero.com/api/news/${newsId}`;
