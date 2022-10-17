@@ -78,13 +78,13 @@ const showAllNews = (allNews, categoriesName) => {
                                     news.author.img
                                  }"/></div>
                                  <div class="ps-2">
-                                    <small>${
+                                    <small class="fw-bold">${
                                        news.author.name
                                           ? news.author.name
                                           : "not found"
                                     }</small>
                                     <br/>
-                                    <small>${
+                                    <small class="fw-bold">${
                                        news.author.published_date
                                           ? news.author.published_date
                                           : "not found"
@@ -93,12 +93,12 @@ const showAllNews = (allNews, categoriesName) => {
                               </div>
                               <div class="d-flex align-items-center">
                               <i style=" color: #5D5FEF;" class="fa-solid fa-eye"></i>
-                                 <small class=" ps-2">${
-                                    news.total_view ? news.total_view : 0
+                                 <small class=" fw-bold ps-2">${
+                                    news.total_view ? news.total_view + " M" : 0
                                  }</small>
                               </div>
                               <div>
-                              <i style=" color: #5D5FEF;" onclick="detailsNews('${
+                              <i style="cursor:pointer; color: #5D5FEF;" onclick="detailsNews('${
                                  news._id
                               }')" class="fa-solid fa-arrow-right-to-bracket" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i>
                               </div>
@@ -153,7 +153,9 @@ const displayDetailsNews = (allNews) => {
             </tr>
             <tr>
                <th>Total view : </th>
-               <td>${news.total_view ? news.total_view : "not found"}</td>
+               <td>${
+                  news.total_view ? news.total_view + " M" : "not found"
+               }</td>
             </tr>
          </tbody>
       </table>
