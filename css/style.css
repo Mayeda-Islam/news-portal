@@ -1,3 +1,9 @@
 hr {
     width: 90%;
 }
+
+#e-news a {
+    color: white;
+    background-color: #5D5FEF;
+    border: 0px solid #5D5FEF;
+}

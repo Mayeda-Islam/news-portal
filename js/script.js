@@ -1,4 +1,5 @@
 const loadAllCategoryNews = () => {
+   toggleSpinner(true);
    const url = `https://openapi.programming-hero.com/api/news/categories`;
    fetch(url)
       .then((res) => res.json())
@@ -11,13 +12,15 @@ const displayAllCategoryNews = (allNews) => {
    for (const news of allNews) {
       const allNewsContainer = document.getElementById("all-news");
       const newsDiv = document.createElement("div");
-      newsDiv.classList.add("col");
-      newsDiv.innerHTML = `<div class='text-center' onclick="loadNews('${news.category_id}')">${news.category_name}</div>`;
+      newsDiv.classList.add("col-sm-2");
+      newsDiv.innerHTML = `<div id="all-news" class="text-center fw-bold pt-2" onclick="loadNews('${news.category_id}')">${news.category_name}</div>`;
       allNewsContainer.appendChild(newsDiv);
    }
+   toggleSpinner(false);
 };
 const loadNews = (newsId) => {
-   console.log(newsId);
+   // spinner
+   toggleSpinner(true);
    const url = `https://openapi.programming-hero.com/api/news/category/${newsId}`;
    fetch(url)
       .then((res) => res.json())
@@ -25,10 +28,9 @@ const loadNews = (newsId) => {
       .catch((error) => console.log(error));
 };
 const showAllNew = (allNews) => {
-   console.log(allNews.length);
    // show the news lenght
    const newsLength = document.getElementById("news-length");
-   newsLength.innerText = ` ${allNews.category_name} is news  ${allNews.length}`;
+   newsLength.innerText = `Total news is ${allNews.length}`;
    const allNewsContainer = document.getElementById("all-news-container");
    allNewsContainer.innerHTML = ``;
    allNews.forEach((news) => {
@@ -36,14 +38,14 @@ const showAllNew = (allNews) => {
       newsDiv.classList.add("col-12");
       newsDiv.innerHTML = `<div class="card style="height: 20rem;">
                      <div class="row">
-                        <div class="col-3">
+                        <div class=" col-sm-12 col-md-3">
                            <img
                               src="${news.thumbnail_url}"
                               class=" p-3 w-100"
                               alt="..."
                            />
                         </div>
-                        <div class="col-9">
+                        <div class=" col-sm-12 col-md-9">
                            <div class="card-body mt-3">
                               <h5 class="card-title">${news.title}</h5>
                               <p class="card-text mt-2" >
@@ -94,6 +96,8 @@ const showAllNew = (allNews) => {
                   </div>`;
       allNewsContainer.appendChild(newsDiv);
    });
+   // stop spinner
+   toggleSpinner(false);
 };
 const detailsNews = (newsId) => {
    const url = `https://openapi.programming-hero.com/api/news/${newsId}`;
@@ -139,5 +143,14 @@ const displayDetailsNews = (allNews) => {
       </table>
      `;
    });
+};
+// loading spinner
+const toggleSpinner = (isLoading) => {
+   const loadingSpinner = document.getElementById("loading-spinner");
+   if (isLoading) {
+      loadingSpinner.classList.remove("d-none");
+   } else {
+      loadingSpinner.classList.add("d-none");
+   }
 };
 loadAllCategoryNews();

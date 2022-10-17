@@ -23,30 +23,43 @@
    </head>
    <body>
       <header>
-         <nav class="container my-4">
+         <nav class="container my-4 d-flex justify-content-between">
             <ul class="nav nav-pills">
+               <li id="e-news" class="nav-item">
+                  <a class="nav-link" href="#home">E-news</a>
+               </li>
                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="#"
-                     >Active</a
+                  <a class="nav-link text-black fst-normal" href="#home"
+                     >Home</a
                   >
                </li>
                <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link disabled">Disabled</a>
+                  <a class="nav-link text-black fst-normal" href="#blog"
+                     >Blog</a
+                  >
                </li>
             </ul>
+            <div>
+               <img class="w-50 rounded-circle" src="images/logo.png" alt="" />
+            </div>
          </nav>
          <hr class="mx-auto" />
       </header>
-      <main>
+      <main id="home">
          <!-- all categories news section -->
          <section class="container">
             <div id="all-news" class="row mb-4"></div>
+         </section>
+         <!-- loading section -->
+         <section>
+            <div
+               id="loading-spinner"
+               class="d-flex justify-content-center d-none"
+            >
+               <div class="spinner-border" role="status">
+                  <span class="visually-hidden">Loading...</span>
+               </div>
+            </div>
          </section>
          <!-- show the length of news -->
          <section>
