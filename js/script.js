@@ -2,7 +2,10 @@ const loadAllCategoryNews = () => {
    const url = `https://openapi.programming-hero.com/api/news/categories`;
    fetch(url)
       .then((res) => res.json())
-      .then((data) => displayAllCategoryNews(data.data.news_category));
+      .then((data) => displayAllCategoryNews(data.data.news_category))
+      .catch((error) => {
+         console.log(error);
+      });
 };
 const displayAllCategoryNews = (allNews) => {
    for (const news of allNews) {
@@ -18,14 +21,14 @@ const loadNews = (newsId) => {
    const url = `https://openapi.programming-hero.com/api/news/category/${newsId}`;
    fetch(url)
       .then((res) => res.json())
-      .then((data) => showAllNew(data.data));
+      .then((data) => showAllNew(data.data))
+      .catch((error) => console.log(error));
 };
 const showAllNew = (allNews) => {
    console.log(allNews.length);
    // show the news lenght
    const newsLength = document.getElementById("news-length");
    newsLength.innerText = ` ${allNews.category_name} is news  ${allNews.length}`;
-   console.log(allNews.category_name);
    const allNewsContainer = document.getElementById("all-news-container");
    allNewsContainer.innerHTML = ``;
    allNews.forEach((news) => {
@@ -43,7 +46,7 @@ const showAllNew = (allNews) => {
                         <div class="col-9">
                            <div class="card-body mt-3">
                               <h5 class="card-title">${news.title}</h5>
-                              <p class="card-text " >
+                              <p class="card-text mt-2" >
                                  ${
                                     news.details.length > 400
                                        ? news.details
@@ -76,16 +79,36 @@ const showAllNew = (allNews) => {
                               </div>
                               <div class="d-flex align-items-center">
                               <i class="fa-solid fa-eye"></i>
-                                 <small class=" ps-2">${news.total_view}</small>
+                                 <small class=" ps-2">${
+                                    news.total_view ? news.total_view : 0
+                                 }</small>
                               </div>
                               <div>
-                              <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                              <i onclick="detailsNews('${
+                                 news._id
+                              }')" class="fa-solid fa-arrow-right-to-bracket" data-bs-toggle="modal" data-bs-target="#staticBackdrop"></i>
                               </div>
                               </div>
                         </div>
                      </div>
                   </div>`;
       allNewsContainer.appendChild(newsDiv);
+   });
+};
+const detailsNews = (newsId) => {
+   const url = `https://openapi.programming-hero.com/api/news/${newsId}`;
+   fetch(url)
+      .then((res) => res.json())
+      .then((data) => displayDetailsNews(data.data));
+};
+const displayDetailsNews = (allNews) => {
+   allNews.forEach((news) => {
+      const newsTitle = document.getElementById("staticBackdropLabel");
+      newsTitle.innerHTML = `<p>${news.title}</p>`;
+      const newsInfo = document.getElementById("news-body");
+      newsInfo.innerHTML = `
+      <img src='${news.image_url}'/>
+      <p>${news.author.nane}</p>`;
    });
 };
 loadAllCategoryNews();
